@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Background = styled.div`
   position: relative;
-  background-image: url(/img/home.jpg);
+  background-image: url(./img/home.jpg);
   background-position: center;
   background-size: cover;
   width: 100%;

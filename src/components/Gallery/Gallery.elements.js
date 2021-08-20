@@ -10,7 +10,7 @@ export const TitleBlock = styled(Row)`
   position: relative;
   width: 100%;
   height: 11rem;
-  background-image: url(/img/home.jpg);
+  background-image: url(./img/home.jpg);
   background-position: bottom bottom;
   background-size: cover;
   border-radius: 1.2em;
@@ -82,8 +82,8 @@ export const CocktailItemTitle = styled.h3`
 export const CocktailItemFavoriteButton = styled.button`
   background: ${(props) =>
       props.isFavorite
-        ? 'url(/img/star-solid.svg)'
-        : 'url(/img/star-regular.svg)'}
+        ? 'url(./img/star-solid.svg)'
+        : 'url(./img/star-regular.svg)'}
     center no-repeat;
   background-size: 2em;
   width: 2.2em;
