@@ -10,7 +10,6 @@ const SimpleButton = styled.button`
   padding: 1.5rem 3rem;
   margin: 0;
   pointer-events: auto;
-  cursor: pointer;
   &::before,
   &::after {
     position: absolute;
@@ -42,6 +41,9 @@ export const MimasButton = styled(SimpleButton)`
   span {
     position: relative;
     mix-blend-mode: difference;
+  }
+  @media (max-width: 768px) {
+    width: 100%;
   }
 `;
 
@@ -95,6 +97,9 @@ const SrollButtonWrapper = styled.button`
     margin-left: -3px;
     animation: ${scrollAnimation} 2s infinite;
   }
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const ScrollButtonChevrons = styled.div`
@@ -124,8 +129,8 @@ const ScrollButtonChevron = styled.div`
   }
 `;
 
-export const ScrollButton = () => (
-  <SrollButtonWrapper>
+export const ScrollButton = ({ onClick }) => (
+  <SrollButtonWrapper onClick={onClick}>
     <ScrollButtonChevrons>
       <ScrollButtonChevron />
       <ScrollButtonChevron />

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { MimasButton, ScrollButton } from 'styles/common/Buttons';
 import { Flex } from 'styles/common/Flex';
 import { AbsolutePosition } from 'styles/common/Position';
@@ -10,8 +10,17 @@ import {
 } from './Header.elements';
 
 export default function Header() {
+  const homePage = useRef(null);
+
+  const handleScrollClick = () => {
+    window.scrollTo({
+      top: homePage.current.offsetHeight,
+      behavior: 'smooth'
+    });
+  };
+
   return (
-    <Background>
+    <Background ref={homePage}>
       <TitleBlock>
         <TitleBlockHeading>Cocktails menu</TitleBlockHeading>
         <TitleBlockText>
@@ -24,13 +33,13 @@ export default function Header() {
           amet animi ab error.
         </TitleBlockText>
         <Flex justify='flex-end'>
-          <MimasButton>
+          <MimasButton onClick={handleScrollClick}>
             <span>Go to menu</span>
           </MimasButton>
         </Flex>
       </TitleBlock>
       <AbsolutePosition bottom='20px' left='50%'>
-        <ScrollButton />
+        <ScrollButton onClick={handleScrollClick} />
       </AbsolutePosition>
     </Background>
   );

@@ -1,25 +1,58 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Col } from 'react-bootstrap';
-import { getCocktails } from 'api/api';
-import { AbsolutePosition } from 'styles/common/Position';
+import GalleryItem from './GalleryItem';
+import { Container } from 'react-bootstrap';
+import { getCocktails, getCocktailById } from 'api/api';
 import {
   Background,
   TitleBlock,
   CocktailsBlock,
-  CocktailItem,
   TitleBlockBlur,
-  TitleBlockHeading,
-  CocktailItemTitle,
-  CocktailItemCircle,
-  CocktailItemImage
+  TitleBlockHeading
 } from './Gallery.elements';
 
 export default function Gallery() {
   const [cocktails, setCocktails] = useState([]);
+  const [activeCocktail, setActiveCocktail] = useState(null);
+  const [favoriteCocktails, setFavoriteCocktails] = useState([]);
 
   useEffect(() => {
     getCocktails(setCocktails);
   }, []);
+
+  const handleMouseEnter = (cocktail) => {
+    getCocktailById(cocktail.idDrink, setActiveCocktail);
+  };
+
+  const handleMouseLeave = () => {
+    setActiveCocktail(null);
+  };
+
+  const isFavorite = (cocktail) => {
+    return !!favoriteCocktails.filter(
+      (favoriteCocktail) => favoriteCocktail.idDrink === cocktail.idDrink
+    ).length;
+  };
+
+  const getNonFavoritesCocktails = () => {
+    return cocktails.filter((cocktail) => !isFavorite(cocktail));
+  };
+
+  const handleFavoriteClick = (cocktail, i) => {
+    if (isFavorite(cocktail)) {
+      setFavoriteCocktails(
+        favoriteCocktails.filter((c) => c.idDrink !== cocktail.idDrink)
+      );
+      const activeCocktailId =
+        i !== favoriteCocktails.length - 1
+          ? favoriteCocktails[i + 1].idDrink
+          : getNonFavoritesCocktails()[0].idDrink;
+      getCocktailById(activeCocktailId, setActiveCocktail);
+    } else {
+      setFavoriteCocktails([...favoriteCocktails, cocktail]);
+      const activeCocktailId = cocktails[i > 0 ? i - 1 : 0].idDrink;
+      getCocktailById(activeCocktailId, setActiveCocktail);
+    }
+  };
 
   return (
     <Background>
@@ -30,16 +63,29 @@ export default function Gallery() {
           </TitleBlockBlur>
         </TitleBlock>
         <CocktailsBlock>
-          {cocktails.map((cocktail, i) => (
-            <Col key={i} sm={6} md={4}>
-              <CocktailItem>
-                <CocktailItemImage src={cocktail.strDrinkThumb} alt='' />
-                <AbsolutePosition bottom='1em' left='1em' right='1em'>
-                  <CocktailItemTitle>{cocktail.strDrink}</CocktailItemTitle>
-                  <CocktailItemCircle />
-                </AbsolutePosition>
-              </CocktailItem>
-            </Col>
+          {favoriteCocktails.map((cocktail, i) => (
+            <GalleryItem
+              key={i}
+              i={i}
+              cocktail={cocktail}
+              activeCocktail={activeCocktail}
+              handleMouseEnter={handleMouseEnter}
+              handleMouseLeave={handleMouseLeave}
+              handleFavoriteClick={handleFavoriteClick}
+              isFavorite={isFavorite}
+            />
+          ))}
+          {getNonFavoritesCocktails().map((cocktail, i) => (
+            <GalleryItem
+              key={i}
+              i={i}
+              cocktail={cocktail}
+              activeCocktail={activeCocktail}
+              handleMouseEnter={handleMouseEnter}
+              handleMouseLeave={handleMouseLeave}
+              handleFavoriteClick={handleFavoriteClick}
+              isFavorite={isFavorite}
+            />
           ))}
         </CocktailsBlock>
       </Container>

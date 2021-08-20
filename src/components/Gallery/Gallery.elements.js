@@ -24,7 +24,7 @@ export const TitleBlockBlur = styled.div`
   justify-content: center;
   height: 100%;
   border-radius: 1.2em;
-  backdrop-filter: blur(100px);
+  backdrop-filter: blur(100px) brightness(0.8);
 `;
 
 export const TitleBlockHeading = styled.h2`
@@ -57,11 +57,18 @@ export const CocktailItemImage = styled.div`
   filter: brightness(0.7);
   width: 100%;
   height: 30em;
-  transition: all ease-in-out 1s;
+  transition: all ease-in-out 0.7s;
   ${CocktailItem}:hover & {
-    background-position: left top;
-    background-size: 200%;
     filter: brightness(0.3);
+  }
+`;
+
+export const CocktailItemInfo = styled.div`
+  font-size: 1.2rem;
+  ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 0.5em;
   }
 `;
 
@@ -69,5 +76,22 @@ export const CocktailItemTitle = styled.h3`
   font-family: ${({ theme }) => theme.fonts.openSans};
   font-weight: 600;
   font-size: 1.4rem;
+  padding-right: 1em;
 `;
-export const CocktailItemCircle = styled.div``;
+
+export const CocktailItemFavoriteButton = styled.button`
+  background: ${(props) =>
+      props.isFavorite
+        ? 'url(/img/star-solid.svg)'
+        : 'url(/img/star-regular.svg)'}
+    center no-repeat;
+  background-size: 2em;
+  width: 2.2em;
+  height: 2em;
+  padding: 0.5em;
+  border: none;
+  transition: all ease-in-out 0.1s;
+  &:hover {
+    background: url(/img/star-solid.svg) center no-repeat;
+  }
+`;

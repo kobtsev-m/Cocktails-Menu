@@ -7,6 +7,7 @@ export const Background = styled.div`
   background-size: cover;
   width: 100%;
   height: 100vh;
+  transition: all ease-in-out 1s;
 `;
 
 export const TitleBlock = styled.div`
@@ -14,9 +15,12 @@ export const TitleBlock = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  backdrop-filter: blur(100px);
+  backdrop-filter: blur(150px) brightness(0.8);
   border-radius: 1.2em;
   padding: 6em;
+  @media (max-width: 768px) {
+    padding: 3em;
+  }
 `;
 
 export const TitleBlockHeading = styled.h1`
@@ -28,6 +32,7 @@ export const TitleBlockHeading = styled.h1`
 `;
 
 export const TitleBlockText = styled.p`
+  letter-spacing: 0.1rem;
   font-size: 1rem;
   font-weight: 400;
   color: ${({ theme }) => theme.colors.white};

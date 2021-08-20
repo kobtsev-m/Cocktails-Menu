@@ -15,4 +15,7 @@ export const GlobalStyle = createGlobalStyle`
     color: inherit;
     text-decoration: none;
   }
+  @media (max-width: 991.98px) { :root { font-size: 15px; } }
+  @media (max-width: 767.98px) { :root { font-size: 14px; } }
+  @media (max-width: 575.98px) { :root { font-size: 12px; } }
 `;
