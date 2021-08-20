@@ -91,7 +91,4 @@ export const CocktailItemFavoriteButton = styled.button`
   padding: 0.5em;
   border: none;
   transition: all ease-in-out 0.1s;
-  &:hover {
-    background: url(/img/star-solid.svg) center no-repeat;
-  }
 `;

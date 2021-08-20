@@ -49,7 +49,8 @@ export default function Gallery() {
       getCocktailById(activeCocktailId, setActiveCocktail);
     } else {
       setFavoriteCocktails([...favoriteCocktails, cocktail]);
-      const activeCocktailId = cocktails[i > 0 ? i - 1 : 0].idDrink;
+      const activeCocktailId =
+        getNonFavoritesCocktails()[i > 0 ? i - 1 : 0].idDrink;
       getCocktailById(activeCocktailId, setActiveCocktail);
     }
   };
